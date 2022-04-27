@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "posthtml": "posthtml index.html -o output.html -c posthtml.config.js"
+    "posthtml": "posthtml input.html -o index.html -c posthtml.config.js"
   },
   "author": "",
   "license": "ISC",
