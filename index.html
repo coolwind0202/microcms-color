@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Input in iframe for microCMS</title>
+</head>
+<body>
+  <input type="color" className="color-input" />
+  <script>
+    const input = document.querySelector(".color-input");
+    let id;
+    input.addEventListener("input", e => {
+      window.parent.postMessage(
+        {
+          id,  // iframe識別子
+          action: 'MICROCMS_POST_DATA',
+          message: {
+            title: '埋め込みの色',
+            data: Number.parseInt(input.value.substr(1), 16)
+          }
+        },
+        'https://{{ SERVICE_ID }}.microcms.io'
+      );
+    });
+    window.addEventListener("message", e => {
+      if (e.isTrusted && e.data.action === "MICROCMS_GET_DEFAULT_DATA") {
+        id = e.data.id;
+        if (e.data.message !== undefined) {
+          // 初期値（10進）を16進数の#FFFFFF形式にする
+          const color = Number.parseInt(data.message, 10);
+          if (Number.isNaN(color)) throw new Error("color initial value is not number");
+          input.value = color.toString(16);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
