@@ -32,7 +32,7 @@
         id = e.data.id;
         if (e.data.message !== undefined) {
           // 初期値（10進）を16進数の#FFFFFF形式にする
-          const color = Number.parseInt(data.message, 10);
+          const color = Number.parseInt(e.data.message.data, 10);
           if (Number.isNaN(color)) throw new Error("color initial value is not number");
           input.value = `#${color.toString(16).padStart(6, "0")}`;
         }
