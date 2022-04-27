@@ -13,7 +13,6 @@
     let id;
 
     input.addEventListener("input", () => {
-      f(Number.parseInt(input.value.substr(1), 16))
       window.parent.postMessage(
         {
           id,  // iframe識別子
@@ -26,7 +25,7 @@
         'https://{{ SERVICE_ID }}.microcms.io'
       );
     });
-    
+
     window.addEventListener("message", e => {
       console.log(e)
       if (e.isTrusted && e.data.action === "MICROCMS_GET_DEFAULT_DATA") {
